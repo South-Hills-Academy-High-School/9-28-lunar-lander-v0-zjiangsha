@@ -3,19 +3,27 @@ namespace SpriteKind {
     export const rocketengine = SpriteKind.create()
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    mySprite.ay = -25
+    apple.ay = 0 * Math.sin(angle)
+    apple.ax = 0 * Math.cos(angle)
+})
+controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
+    angle += 1 * (3.14 / 180)
 })
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.darkGroundCenter, function (sprite, location) {
-    mySprite.setPosition(0, -1)
+    apple.setPosition(0, -1)
+})
+controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
+    angle += 1 * (3.14 / 180)
 })
 controller.A.onEvent(ControllerButtonEvent.Released, function () {
-    mySprite.ay = 20
+    apple.ay = 20
 })
-let mySprite: Sprite = null
+let apple: Sprite = null
 let angle = 0
+angle = 0
 tiles.setCurrentTilemap(tilemap`level1`)
 effects.clouds.startScreenEffect()
-mySprite = sprites.create(img`
+apple = sprites.create(img`
     . . . . . . . e c 7 . . . . . . 
     . . . . e e e c 7 7 e e . . . . 
     . . c e e e e c 7 e 2 2 e e . . 
@@ -37,16 +45,16 @@ let mySprite3 = sprites.create(img`
     3 7 
     7 3 
     `, SpriteKind.rocketengine)
-scene.cameraFollowSprite(mySprite)
-scaling.scaleByPercent(mySprite, -25, ScaleDirection.Uniformly, ScaleAnchor.Middle)
-mySprite.ay = 20
+scene.cameraFollowSprite(apple)
+scaling.scaleByPercent(apple, -25, ScaleDirection.Uniformly, ScaleAnchor.Middle)
+apple.ay = 20
 let myMinimap = minimap.minimap(MinimapScale.Eighth, 2, 0)
 let mySprite2 = sprites.create(minimap.getImage(myMinimap), SpriteKind.map)
 game.onUpdate(function () {
     mySprite2.destroy()
     myMinimap = minimap.minimap(MinimapScale.Half, 2, 0)
-    minimap.includeSprite(myMinimap, mySprite, MinimapSpriteScale.MinimapScale)
+    minimap.includeSprite(myMinimap, apple, MinimapSpriteScale.MinimapScale)
     mySprite2 = sprites.create(minimap.getImage(myMinimap), SpriteKind.map)
-    mySprite2.setPosition(mySprite.left, mySprite.top)
-    mySprite3.setPosition(mySprite.x, mySprite.y)
+    mySprite2.setPosition(apple.x - 50, apple.y - 30)
+    mySprite3.setPosition(apple.x + -8 * Math.cos(angle), apple.y + -8 * Math.sin(angle))
 })
