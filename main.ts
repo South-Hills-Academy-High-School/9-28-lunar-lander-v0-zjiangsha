@@ -20,6 +20,25 @@ controller.A.onEvent(ControllerButtonEvent.Released, function () {
 })
 let apple: Sprite = null
 let angle = 0
+let fireball = sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . 4 4 4 4 . . . . . . 
+    . . . . 4 4 4 5 5 4 4 4 . . . . 
+    . . . 3 3 3 3 4 4 4 4 4 4 . . . 
+    . . 4 3 3 3 3 2 2 2 1 1 4 4 . . 
+    . . 3 3 3 3 3 2 2 2 1 1 5 4 . . 
+    . 4 3 3 3 3 2 2 2 2 2 5 5 4 4 . 
+    . 4 3 3 3 2 2 2 4 4 4 4 5 4 4 . 
+    . 4 4 3 3 2 2 4 4 4 4 4 4 4 4 . 
+    . 4 2 3 3 2 2 4 4 4 4 4 4 4 4 . 
+    . . 4 2 3 3 2 4 4 4 4 4 2 4 . . 
+    . . 4 2 2 3 2 2 4 4 4 2 4 4 . . 
+    . . . 4 2 2 2 2 2 2 2 2 4 . . . 
+    . . . . 4 4 2 2 2 2 4 4 . . . . 
+    . . . . . . 4 4 4 4 . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, SpriteKind.Player)
+fireball.setFlag(SpriteFlag.Invisible, true)
 angle = 0
 tiles.setCurrentTilemap(tilemap`level1`)
 effects.clouds.startScreenEffect()
@@ -57,4 +76,5 @@ game.onUpdate(function () {
     mySprite2 = sprites.create(minimap.getImage(myMinimap), SpriteKind.map)
     mySprite2.setPosition(apple.x - 50, apple.y - 30)
     mySprite3.setPosition(apple.x + -8 * Math.cos(angle), apple.y + -8 * Math.sin(angle))
+    fireball.setPosition(apple.x - -8, apple.y - 30)
 })
